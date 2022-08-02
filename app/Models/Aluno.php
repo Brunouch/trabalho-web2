@@ -9,7 +9,9 @@ class Aluno extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nome', 'curso_id'];
+
     public function curso(){
-        return $this->belongsTo('App\Model\Curso');
+        return $this->belongsTo('App\Models\Curso');
     }
 }
