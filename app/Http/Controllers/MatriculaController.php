@@ -1,48 +1,36 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Aluno;
 use App\Models\Disciplina;
 use App\Models\Matricula;
 use Illuminate\Http\Request;
 
 class MatriculaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function update(Request $request, $id)
     {
+        $aluno = Aluno::find($id);
 
-        $disciplinas = Disciplina::with(['curso'])
-            ->orderBy('curso_id')->orderBy('id')->get();
+        $matriculas = new Matricula;
 
+        $matriculas->where('aluno_id', $id)->delete();
 
-        return view('matriculas.index', compact(['disciplinas']));
-    }
+        $disciplinas = Disciplina::where('curso_id', $aluno->curso_id)->get();
 
-   
-    public function store(Request $request)
-    {
-        $rules = [
-            'DISCIPLINA' => 'required',
-        ];
-        $msgs = [
-            "required" => "O preenchimento do campo [:attribute] é obrigatório!",
-            "max" => "O campo [:attribute] possui tamanho máximo de [:max] caracteres!",
-            "min" => "O campo [:attribute] possui tamanho mínimo de [:min] caracteres!",
-        ];
+        for ($i=0; $i < sizeof($disciplinas); $i++) { 
+            $item = 'item'.$i;
+            $disciplina_id = $request->$item;
 
-        $request->validate($rules, $msgs);
+            if ($disciplina_id != null) {
+                $disciplina = Disciplina::find($disciplina_id);
 
-        $disciplina = $request->DISCIPLINA;
+                $matricula = new Matricula;
 
-
-        for ($i = 0; $i < count($request->DISCIPLINA); $i++) {
-            $doc = new Matricula();
-            $doc->disciplina_id = $disciplina[$i];
-            $doc->save();
+                $matricula->aluno()->associate($aluno);
+                $matricula->disciplina()->associate($disciplina);
+                $matricula->save();
+            }
         }
 
         return redirect()->route('alunos.index');

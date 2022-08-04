@@ -26,16 +26,16 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-dark text-white">Curso</span>
-                        <select name="curso" class="form-select @if($errors->has('curso')) is-invalid @endif">
+                        <select name="curso_id" class="form-select @if($errors->has('curso_id')) is-invalid @endif">
                             @foreach ($curso as $item)
-                            <option value="{{$item->id}}" @if($item->id == old('curso')) selected="true" @endif>
+                            <option value="{{$item->id}}" @if($item->id == old('curso_id')) selected="true" @endif>
                                 {{ $item->nome }}
                             </option>
                             @endforeach
                         </select>
-                        @if($errors->has('curso'))
+                        @if($errors->has('curso_id'))
                         <div class='invalid-feedback'>
-                            {{ $errors->first('curso') }}
+                            {{ $errors->first('curso_id') }}
                         </div>
                         @endif
                     </div>

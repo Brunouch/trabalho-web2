@@ -18,16 +18,17 @@
                 </tr>
             </thead>
             <tbody>
-                <form action="{{ route('docencias.store') }}" method="POST">
+                <form action="{{ route('matriculas.update', $aluno->id) }}" method="POST">
                     @csrf
-                    @foreach($disciplinas as $disciplina)
+                    @foreach($disciplinas as $item)
                     <tr>
-                        <td scope="col" class="text-center col-md-6 ">
-                            <div class="input-group mb-3">
-                                <input type="hidden" readonly class="form-control-plaintext" name="DISCIPLINA[]" value="{{$disciplina->id}}">
-                                {{$disciplina->nome}}
-                            </div>
-                        </td>
+                    <td> <input type="checkbox"
+                                    name="item{{$cont}}"
+                                    value="{{$item->id}}"
+                                    @foreach($matricula as $matricula)
+                                        @if($matricula->disciplina_id == $item->id)
+                                            checked
+                                        @endif
                     </tr>
                     @endforeach
             </tbody>

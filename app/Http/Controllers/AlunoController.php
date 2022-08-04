@@ -55,10 +55,13 @@ class AlunoController extends Controller
     }
     public function show($id)
     {
-        $mat = Matricula::with(['disciplina'])
-            ->where('aluno_id', '=', $id)->distinct()->get(['disciplina_id']);
+        $aluno = Aluno::find($id);
 
-        return view('alunos.show', compact(['mat']));
+        $disc = Disciplina::where('curso_id', $aluno->curso_id)->get();
+
+        $mat = Matricula::where('aluno_id', $id)->get();
+
+        return view('matriculas.matricula', compact('aluno', 'disc', 'mat'));
     }
 
     
@@ -78,32 +81,34 @@ class AlunoController extends Controller
     
     public function update(Request $request, $id)
     {
-        $rules = [
-            'nome' => 'required|max:100|min:10',
-            'eixo' => 'required',
+        $obj = Aluno::find($id);
 
+        if(!isset($obj)) { return "<h1>ID: $id não encontrado!"; }
+
+        $regras = [
+            'nome' => 'required|max:100|min:10',
+            'curso_id' => 'required'
         ];
+
         $msgs = [
             "required" => "O preenchimento do campo [:attribute] é obrigatório!",
             "max" => "O campo [:attribute] possui tamanho máximo de [:max] caracteres!",
-            "min" => "O campo [:attribute] possui tamanho mínimo de [:min] caracteres!",
+            "min" => "O campo [:attribute] possui tamanho mínimo de [:min] caracteres!"
         ];
 
-        $request->validate($rules, $msgs);
+        $request->validate($regras, $msgs);
 
-        $curso = Curso::find($request->curso);
-        $obj_aluno = Aluno::find($id);
+        $obj_curso = Curso::find($request->curso_id);
 
-        if (isset($curso) && isset($obj_aluno)) {
+        $obj->nome =  mb_strtoupper($request->nome, 'UTF-8');
 
-            $obj_aluno->nome = mb_strtoupper($request->nome, 'UTF-8');
-            $obj_aluno->curso()->associate($curso);
-            $obj_aluno->save();
+        $obj->curso()->associate($obj_curso);
 
+        $obj->save();
 
-            return redirect()->route('alunos.index');
+        return redirect()->route('alunos.index');
         }
-    }
+    
 
    
     public function destroy($id)
@@ -111,7 +116,7 @@ class AlunoController extends Controller
         $obj = Aluno::find($id);
 
         if (isset($obj)) {
-            $obj->delete();
+            $obj->destroy(($id));
         } 
 
         return redirect()->route('alunos.index');
