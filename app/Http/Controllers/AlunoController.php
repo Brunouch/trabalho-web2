@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Curso;
 use App\Models\Matricula;
+use App\Models\Disciplina;
 
 use Illuminate\Http\Request;
 

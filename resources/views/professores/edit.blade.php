@@ -69,7 +69,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-dark text-white">Eixo</span>
                         <select name="eixo" class="form-select @if($errors->has('eixo')) is-invalid @endif">
-                            @foreach ($eixos as $item)
+                            @foreach ($eixo as $item)
                             <option value="{{$item->id}}" @if($item->id == $data->eixo_id) selected="true" @endif>
                                 {{ $item->nome }}
                             </option>
