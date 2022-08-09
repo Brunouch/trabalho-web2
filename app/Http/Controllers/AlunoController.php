@@ -28,9 +28,10 @@ class AlunoController extends Controller
    
     public function store(Request $request)
     {
+
         $rules = [
             'nome' => 'required|max:100|min:10',
-            'curso' => 'required',
+            'curso_id' => 'required',
         ];
 
         $msgs = [
@@ -41,9 +42,10 @@ class AlunoController extends Controller
 
         $request->validate($rules, $msgs);
 
-        $curso = Curso::find($request->curso);
+        $curso = Curso::find($request->curso_id);
 
         if (isset($curso)) {
+            
 
             $obj = new Aluno();
             $obj->nome = mb_strtoupper($request->nome, 'UTF-8');
@@ -62,7 +64,7 @@ class AlunoController extends Controller
 
         $mat = Matricula::where('aluno_id', $id)->get();
 
-        return view('matriculas.matricula', compact('aluno', 'disc', 'mat'));
+        return view('matriculas.index', compact('aluno', 'disc', 'mat'));
     }
 
     

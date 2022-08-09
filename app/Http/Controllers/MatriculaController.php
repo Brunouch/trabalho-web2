@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Aluno;
 use App\Models\Disciplina;
 use App\Models\Matricula;
@@ -8,33 +9,26 @@ use Illuminate\Http\Request;
 
 class MatriculaController extends Controller
 {
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
-        $aluno = Aluno::find($id);
 
-        $matriculas = new Matricula;
 
-        $matriculas->where('aluno_id', $id)->delete();
+        $aluno = Aluno::find($request->aluno);
 
-        $disciplinas = Disciplina::where('curso_id', $aluno->curso_id)->get();
+        Matricula::where('aluno_id', $request->aluno)->delete();
 
-        for ($i=0; $i < sizeof($disciplinas); $i++) { 
-            $item = 'item'.$i;
-            $disciplina_id = $request->$item;
 
-            if ($disciplina_id != null) {
-                $disciplina = Disciplina::find($disciplina_id);
+
+        if (isset($request->disciplina)) {
+            for ($i = 0; $i < count($request->disciplina); $i++) {
 
                 $matricula = new Matricula;
 
-                $matricula->aluno()->associate($aluno);
-                $matricula->disciplina()->associate($disciplina);
+                $matricula->aluno_id = $request->aluno;
+                $matricula->disciplina_id = $request->disciplina[$i];
                 $matricula->save();
             }
         }
-
         return redirect()->route('alunos.index');
     }
-
-
 }

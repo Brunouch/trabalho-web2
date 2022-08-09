@@ -18,6 +18,7 @@ class Aluno extends Migration
             $table->string('nome');
             $table->unsignedBigInteger('curso_id');
             $table->foreign('curso_id')->references('id')->on('cursos');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

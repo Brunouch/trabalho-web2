@@ -17,6 +17,8 @@ class Matricula extends Migration
             $table->id();
             $table->unsignedBigInteger('disciplina_id');
             $table->foreign('disciplina_id')->references('id')->on('disciplinas');
+            $table->unsignedBigInteger('aluno_id');
+            $table->foreign('aluno_id')->references('id')->on('alunos');
             $table->timestamps();
         });
     }
