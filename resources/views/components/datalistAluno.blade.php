@@ -32,7 +32,7 @@
             <tbody>
                 @foreach ($data as $item)
                 <tr>
-                    <td>{{ $item->nome }}</td>
+                    <td>{{ $item->nome }}</td>e
                     <td class="d-none d-md-table-cell">{{ $item->curso->nome }}</td>
                     <td>
                         <a href="{{ route('alunos.edit', $item->id) }}" class="btn btn-success">
@@ -59,7 +59,7 @@
                             </svg>
                         </a>
                     </td>
-                    <form action="{{ route('cursos.destroy', $item->id) }}" method="POST" id="form_{{$item->id}}">
+                    <form action="{{ route('alunos.destroy', $item->id) }}" method="POST" id="form_{{$item->id}}">
                         @csrf
                         @method('DELETE')
                     </form>
