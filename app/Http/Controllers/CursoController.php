@@ -59,13 +59,13 @@ class CursoController extends Controller
     }
     public function edit($id)
     {
+        
         $data = Curso::find($id);
         $eixo = Eixo::orderby('nome')->get();
 
         if (!isset($data)) {
             return "<h1>ID: $id não encontrado!</h1>";
         }
-
         return view('cursos.edit', compact(['data', 'eixo']));
     }
 
@@ -80,17 +80,17 @@ class CursoController extends Controller
 
         if ($request->id == $obj->id) {
             $regras = [
-                'nome' => 'required|max:50|min:10|unique:cursos',
+                'nome' => 'required|max:50|min:10',
                 'sigla' => 'required|max:8|min:2',
                 'tempo' => 'required|max:2|min:1',
-                'eixo_id' => 'required'
+                'eixo' => 'required'
             ];
         }else{
             $regras = [
-                'nome' => 'required|max:50|min:10|unique:cursos',
+                'nome' => 'required|max:50|min:10',
                 'sigla' => 'required|max:8|min:2',
                 'tempo' => 'required|max:2|min:1',
-                'eixo_id' => 'required'
+                'eixo' => 'required'
             ];
         }
 

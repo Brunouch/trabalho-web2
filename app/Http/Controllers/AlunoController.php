@@ -31,7 +31,7 @@ class AlunoController extends Controller
 
         $rules = [
             'nome' => 'required|max:100|min:10',
-            'curso_id' => 'required',
+            'curso' => 'required',
         ];
 
         $msgs = [

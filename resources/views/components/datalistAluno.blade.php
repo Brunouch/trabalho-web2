@@ -32,7 +32,7 @@
             <tbody>
                 @foreach ($data as $item)
                 <tr>
-                    <td>{{ $item->nome }}</td>e
+                    <td>{{ $item->nome }}</td>
                     <td class="d-none d-md-table-cell">{{ $item->curso->nome }}</td>
                     <td>
                         <a href="{{ route('alunos.edit', $item->id) }}" class="btn btn-success">
