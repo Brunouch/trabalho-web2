@@ -13,7 +13,7 @@ class Controller extends BaseController
 
     public function __construct() {
 
-        $this->middleware('ControleAcesso:2');
+        $this->middleware('ControleAcesso:0');
     }
     
 }
