@@ -1,4 +1,4 @@
-@extends('templates/main')
+@extends('templates/middleware')
 
 @section('conteudo')
 <form action="{{ route('matriculas.store') }}" method="POST">
@@ -28,9 +28,7 @@
                     <tr>
                         <td class="col-md-6">{{$item->nome}}</td>
                         <td class="text-center col-md-6">
-                            <input type="checkbox" name="disciplina[]" value="{{$item->id}}"
-                            @foreach($mat as $matricula)
-                            @if($matricula->disciplina_id == $item->id)
+                            <input type="checkbox" name="disciplina[]" value="{{$item->id}}" @foreach($mat as $matricula) @if($matricula->disciplina_id == $item->id)
                             checked
                             @endif
                             @endforeach>

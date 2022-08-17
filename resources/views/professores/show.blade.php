@@ -1,4 +1,4 @@
-@extends('templates/main')
+@extends('templates/middleware')
 
 @section('conteudo')
 <div class="row">

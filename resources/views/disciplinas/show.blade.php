@@ -1,4 +1,4 @@
-@extends('templates/main')
+@extends('templates/middleware')
 
 @section('conteudo')
 <div class="row">
@@ -18,11 +18,11 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($doc as $item)
+                @foreach ($doc as $item)
                 <tr>
-                    @if($item->professor->ativo != 0)                 
-                        <td>{{$item->professor->nome}}</td>
-                        <td>{{$item->professor->eixo->nome}}</td>
+                    @if($item->professor->ativo != 0)
+                    <td>{{$item->professor->nome}}</td>
+                    <td>{{$item->professor->eixo->nome}}</td>
                     @endif
                 </tr>
                 @endforeach

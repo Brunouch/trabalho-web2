@@ -18,7 +18,32 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('templates.middleware');
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('/cursos', '\App\Http\Controllers\CursoController')
+    ->middleware(['auth']);
+
+Route::resource('/eixos', '\App\Http\Controllers\EixosController')
+    ->middleware(['auth']);
+
+Route::resource('/alunos', '\App\Http\Controllers\AlunoController')
+    ->middleware(['auth']);
+
+Route::resource('/professores', '\App\Http\Controllers\ProfessorController')
+    ->middleware(['auth']);
+
+Route::resource('/disciplinas', '\App\Http\Controllers\DisciplinaController')
+    ->middleware(['auth']);
+
+Route::resource('/matriculas', '\App\Http\Controllers\MatriculaController')
+    ->middleware(['auth']);
+
+Route::resource('/docencias', '\App\Http\Controllers\DocenciaController')
+    ->middleware(['auth']);
+    
+Route::get('/testfacade', function () {
+    return UserPermissions::test();
+});
 
 require __DIR__.'/auth.php';
