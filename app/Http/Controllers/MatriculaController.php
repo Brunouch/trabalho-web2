@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aluno;
 use App\Models\Disciplina;
 use App\Models\Matricula;
+use App\Facades\UserPermission;
 use Illuminate\Http\Request;
 
 class MatriculaController extends Controller

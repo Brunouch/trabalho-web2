@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Disciplina;
 use App\Models\Curso;
 use App\Models\Eixo;
+use App\Facades\UserPermission;
 
 use Illuminate\Http\Request;
 
@@ -15,6 +16,10 @@ class DisciplinaController extends Controller
 
     public function index()
     {
+        if(!UserPermission::isAuthorized('disciplinas.index')) {
+            return response()->view('templates.restrito');
+        }
+
         $data = Disciplina::with(['curso'])->orderby('nome')->get();
 
         return view('disciplinas.index', compact(['data']));
@@ -23,6 +28,10 @@ class DisciplinaController extends Controller
 
     public function create()
     {
+        if(!UserPermission::isAuthorized('disciplinas.create')) {
+            return response()->view('templates.restrito');
+        }
+
         $curso = Curso::orderby('nome')->get();
 
         return view('disciplinas.create', compact(['curso']));
@@ -30,7 +39,7 @@ class DisciplinaController extends Controller
 
 
     public function store(Request $request)
-    {
+    {   
         $regras = [
             'nome' => 'required|max:100|min:10',
             'curso_id' => 'required',
@@ -59,7 +68,11 @@ class DisciplinaController extends Controller
     }
 
     public function edit($id)
-    {
+    {   
+        if(!UserPermission::isAuthorized('disciplinas.edit')) {
+            return response()->view('templates.restrito');
+        }
+
         $data = Disciplina::find($id);
         $curso = Curso::orderby('nome')->get();
 
@@ -119,6 +132,9 @@ class DisciplinaController extends Controller
 
     public function destroy($id)
     {
+        if(!UserPermission::isAuthorized('disciplinas.destroy')) {
+            return response()->view('templates.restrito');
+        }
         $obj = Disciplina::find($id);
 
         if (isset($obj)) {

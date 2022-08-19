@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Facades\UserPermission;
 use App\Models\Curso;
 use App\Models\Eixo;
+
 
 use Illuminate\Http\Request;
 
@@ -13,6 +15,10 @@ class CursoController extends Controller
     
     public function index()
     {
+        if(!UserPermission::isAuthorized('cursos.index')) {
+            return response()->view('templates.restrito');
+        }
+
         $data = Curso::all();
 
         return view('cursos.index', compact('data'));
@@ -20,6 +26,10 @@ class CursoController extends Controller
 
     public function create()
     {
+        if(!UserPermission::isAuthorized('cursos.create')) {
+            return response()->view('templates.restrito');
+        }
+
         $eixo = Eixo::orderby('nome')->get();
 
         return view('cursos.create', compact(['eixo']));
@@ -57,6 +67,7 @@ class CursoController extends Controller
 
         return redirect()->route('cursos.index');
     }
+
     public function edit($id)
     {
         
@@ -122,6 +133,10 @@ class CursoController extends Controller
 
     public function destroy($id)
     {
+        if(!UserPermission::isAuthorized('cursos.destroy')) {
+            return response()->view('templates.restrito');
+        }
+
         $obj = Curso::find($id);
 
         if (isset($obj)) {

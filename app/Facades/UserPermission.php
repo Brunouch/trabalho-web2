@@ -4,7 +4,7 @@ namespace App\Facades;
 
 use App\Models\Permission;
 
-class UserPermissions
+class UserPermission
 {
 
     public static function loadPermissions($user_type)

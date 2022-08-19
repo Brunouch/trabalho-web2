@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-secondary">
+    <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-success">
         <div class="container-fluid">
             <a href="#" class="navbar-brand ms-sm-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-clipboard2-pulse-fill" viewBox="0 0 16 16">
@@ -34,27 +34,28 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown ps-2">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFF" class="bi bi-house-fill" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-menu-up" viewBox="0 0 16 16">
+                                <path d="M7.646 15.854a.5.5 0 0 0 .708 0L10.207 14H14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3.793l1.853 1.854zM1 9V6h14v3H1zm14 1v2a1 1 0 0 1-1 1h-3.793a1 1 0 0 0-.707.293l-1.5 1.5-1.5-1.5A1 1 0 0 0 5.793 13H2a1 1 0 0 1-1-1v-2h14zm0-5H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2zM2 11.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 0-1h-8a.5.5 0 0 0-.5.5zm0-4a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11a.5.5 0 0 0-.5.5zm0-4a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1h-6a.5.5 0 0 0-.5.5z" />
                             </svg>
                             <span class="ps-1 text-white">Organização</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" class="dropdown-item">Alunos</a></li>
+                            <li><a href="{{route('alunos.index')}}" class="dropdown-item">Alunos</a></li>
                             <li><a href="{{route('cursos.index')}}" class="dropdown-item">Cursos</a></li>
-                            <li><a href="#" class="dropdown-item">Disciplinas</a></li>
-                            <li><a href="#" class="dropdown-item">Eixos</a></li>
-                            <li><a href="#" class="dropdown-item">Professores</a></li>
+                            <li><a href="{{route('disciplinas.index')}}" class="dropdown-item">Disciplinas</a></li>
+                            <li><a href="{{route('docencias.index')}}" class="dropdown-item">Docencia</a></li>
+                            <li><a href="{{route('eixos.index')}}" class="dropdown-item">Eixos</a></li>
+                            <li><a href="{{route('professores.index')}}" class="dropdown-item">Professores</a></li>
                         </ul>
                     </li>
                     <li class="nav-item ps-2 me-3">
                         <form method="POST" action="{{ route('logout') }}" id="form">
                             @csrf
                             <a nohref style="cursor:pointer" class="nav-link" onclick="document.getElementById('form').submit()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFF" class="bi bi-door-closed-fill" viewBox="0 0 16 16">
-                                    <path d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                                </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+                                <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
+                                <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117zM11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5zM4 1.934V15h6V1.077l-6 .857z" />
+                            </svg>
                                 <span class="ps-1 text-white">Sair</span>
                             </a>
                         </form>
@@ -68,9 +69,9 @@
             <div class="col">
                 <h3 class="display-7 text-secondary d-none d-md-block"><b>SysColetivo</b></h3>
             </div>
-            @if(isset($rota) && UserPermissions::isAuthorized('cursos.create'))
+            @if(isset($rota) && UserPermission::isAuthorized('cursos.create'))
             <div class="col d-flex justify-content-end">
-                <a href="{{ route($rota) }}" class="btn btn-secondary">
+                <a href="{{ route($rota) }}" class="btn btn-success">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFF" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
                     </svg>
@@ -81,7 +82,7 @@
         <hr>
         @yield('conteudo')
     </div>
-    <nav class="navbar fixed-bottom navbar-dark bg-secondary">
+    <nav class="navbar fixed-bottom navbar-dark bg-success">
         <div class="container-fluid">
             <span class="text-white fw-light">{{ Auth::user()->name }}</span>
         </div>

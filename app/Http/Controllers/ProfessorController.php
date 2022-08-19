@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\UserPermission;
 use App\Models\Professor;
 use App\Models\Eixo;
 use App\Models\Docencia;
+
 
 use Illuminate\Http\Request;
 
@@ -13,6 +15,9 @@ class ProfessorController extends Controller
     
     public function index()
     {
+        if(!UserPermission::isAuthorized('professores.index')) {
+            return response()->view('templates.restrito');
+        }
         $data = Professor::with(['eixo'])->get();
 
         return view('professores.index', compact(['data']));
@@ -20,7 +25,10 @@ class ProfessorController extends Controller
 
 
     public function create()
-    {
+    {   
+        if(!UserPermission::isAuthorized('professores.create')) {
+            abort(403);
+        }
         $eixo = Eixo::orderBy('nome')->get();
         return view('professores.create', compact(['eixo']));
     }
@@ -66,7 +74,9 @@ class ProfessorController extends Controller
     
     public function edit($id)
     {
-        
+        if(!UserPermission::isAuthorized('professores.edit')) {
+            return response()->view('templates.restrito');
+        }
         $eixo = Eixo::orderBy('nome')->get();
         $data = Professor::with(['eixo' => function ($q) {
             $q->withTrashed();
@@ -117,6 +127,9 @@ class ProfessorController extends Controller
    
     public function destroy($id)
     {
+        if(!UserPermission::isAuthorized('professores.destroy')) {
+            return response()->view('templates.restrito');
+        }
         $obj = Professor::find($id);
 
         if (isset($obj)) {

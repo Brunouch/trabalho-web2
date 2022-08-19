@@ -6,6 +6,7 @@ use App\Models\Curso;
 use App\Models\Professor;
 use App\Models\Disciplina;
 use App\Models\Docencia;
+use App\Facades\UserPermission;
 
 
 use Illuminate\Http\Request;

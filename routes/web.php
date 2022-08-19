@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Facades\UserPermission;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::get('/dashboard', function () {
 Route::resource('/cursos', '\App\Http\Controllers\CursoController')
     ->middleware(['auth']);
 
-Route::resource('/eixos', '\App\Http\Controllers\EixosController')
+Route::resource('/eixos', '\App\Http\Controllers\EixoController')
     ->middleware(['auth']);
 
 Route::resource('/alunos', '\App\Http\Controllers\AlunoController')
@@ -43,7 +44,7 @@ Route::resource('/docencias', '\App\Http\Controllers\DocenciaController')
     ->middleware(['auth']);
     
 Route::get('/testfacade', function () {
-    return UserPermissions::test();
+    return UserPermission::test();
 });
 
 require __DIR__.'/auth.php';

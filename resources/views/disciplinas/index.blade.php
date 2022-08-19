@@ -1,6 +1,5 @@
 <!-- Herda o layout padrão definido no template "main" -->
-@extends('templates.middleware', ['titulo' => "Disciplinas", 'rota' => "disciplinas.create"])
-<!-- Preenche o conteúdo da seção "titulo" -->
+@extends('templates/middleware')<!-- Preenche o conteúdo da seção "titulo" -->
 @section('titulo') - Disciplinas @endsection
 <!-- Preenche o conteúdo da seção "conteudo" -->
 @section('conteudo')

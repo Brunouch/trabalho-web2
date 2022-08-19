@@ -1,5 +1,5 @@
 <!-- Herda o layout padrão definido no template "main" -->
-@extends('templates.middleware')
+@extends('templates/middleware')
 <!-- Preenche o conteúdo da seção "titulo" -->
 <!-- Preenche o conteúdo da seção "conteudo" -->
 @section('conteudo')

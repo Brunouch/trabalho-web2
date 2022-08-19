@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Eixo;
+use App\Facades\UserPermission;
 
 class EixoController extends Controller
 {
     
     public function index()
     {
+        if(!UserPermission::isAuthorized('eixos.index')) {
+            return response()->view('templates.restrito');
+        }
+
         $data = Eixo::orderby('nome')->get();
 
         return view('eixos.index', compact(['data']));
@@ -18,12 +23,18 @@ class EixoController extends Controller
     
     public function create()
     {
+        if(!UserPermission::isAuthorized('eixos.create')) {
+            return response()->view('templates.restrito');
+        }
         return view('eixos.create');
     }
 
    
     public function store(Request $request)
     {
+        if(!UserPermission::isAuthorized('eixos.index')) {
+            abort(403);
+        }
         $regras = [
             'nome' => 'required|max:100|min:10',
         ];
@@ -47,6 +58,10 @@ class EixoController extends Controller
 
     public function edit($id)
     {
+        if(!UserPermission::isAuthorized('eixos.edit')) {
+            return response()->view('templates.restrito');
+        }
+
         $data = Eixo::find($id);
 
         if(!isset($data)){
@@ -99,6 +114,10 @@ class EixoController extends Controller
     
     public function destroy($id)
     {
+
+        if(!UserPermission::isAuthorized('eixos.destroy')) {
+            return response()->view('templates.restrito');
+        }
         $obj = Eixo::find($id);
 
         

@@ -5,6 +5,7 @@ use App\Models\Aluno;
 use App\Models\Curso;
 use App\Models\Matricula;
 use App\Models\Disciplina;
+use App\Facades\UserPermission;
 
 use Illuminate\Http\Request;
 
@@ -12,7 +13,10 @@ class AlunoController extends Controller
 {
  
     public function index()
-    {
+    {   
+        if (!UserPermission::isAuthorized('alunos.index')) {
+            return response()->view('templates.restrito');
+        }
         $data = Aluno::with(['curso'])->get();
 
         return view('alunos.index', compact(['data']));
@@ -21,6 +25,10 @@ class AlunoController extends Controller
 
     public function create()
     {
+        if (!UserPermission::isAuthorized('alunos.create')) {
+            abort(403);
+        }
+
         $curso = Curso::orderBy('nome')->get();
         return view('alunos.create', compact(['curso']));
     }
@@ -31,7 +39,7 @@ class AlunoController extends Controller
 
         $rules = [
             'nome' => 'required|max:100|min:10',
-            'curso' => 'required',
+            'curso_id' => 'required',
         ];
 
         $msgs = [
@@ -70,6 +78,9 @@ class AlunoController extends Controller
     
     public function edit($id)
     {
+        if (!UserPermission::isAuthorized('alunos.edit')) {
+            return response()->view('templates.restrito');
+        }
 
         $curso = Curso::orderBy('nome')->get();
         $data = Aluno::find($id);
@@ -115,7 +126,9 @@ class AlunoController extends Controller
 
    
     public function destroy($id)
-    {
+    {   if(!UserPermission::isAuthorized('alunos.destroy')) {
+        return response()->view('templates.restrito');
+    }
         $obj = Aluno::find($id);
 
         if (isset($obj)) {
