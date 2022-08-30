@@ -26,7 +26,7 @@ class AlunoController extends Controller
     public function create()
     {
         if (!UserPermission::isAuthorized('alunos.create')) {
-            abort(403);
+            return response()->view('templates.restrito');
         }
 
         $curso = Curso::orderBy('nome')->get();
